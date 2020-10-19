@@ -126,7 +126,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
   }
   var toolTip = d3.tip()
     .attr("class", "tooltip")
-    .style("background","blue")
+    .style("background","grey")
     .style("color","white")
     .offset([80, -60])
     .html(function(d) {
@@ -154,8 +154,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 }
 
 // Retrieve data from the CSV file and execute everything below
-d3.csv("assets/data/data.csv").then(function(data, err) 
-{
+d3.csv("assets/data/data.csv").then(function(data, err) {
   if (err) throw err;
 
   // Parse data
@@ -198,7 +197,7 @@ d3.csv("assets/data/data.csv").then(function(data, err)
     .attr("cy", d => yLinearScale(d[chosenYAxis]))
     .attr("r", 15)
     .attr("fill", "blue")
-    .attr("opacity", ".65");
+    .attr("opacity", ".5");
 
   //text in circle
   var circlesTextGroup = chartGroup.selectAll()
@@ -237,7 +236,7 @@ d3.csv("assets/data/data.csv").then(function(data, err)
     .classed("inactive", true)
     .text("Household Income (Median)");
     
-  // Create group for three* y-axis labels
+  // Create group for three y-axis labels
   var obesityLabel = labelsGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", (margin.left) * 2.5)
@@ -275,13 +274,13 @@ d3.csv("assets/data/data.csv").then(function(data, err)
         // replaces chosenXAxis with value
         chosenXAxis = value;
 
-        console.log(chosenXAxis)
+        // console.log(chosenXAxis)
 
         // functions here found above csv import
         // updates x scale for new data
         xLinearScale = xScale(data, chosenXAxis);
 
-        // updates x axis with transition
+        // updates x axis with new values
         xAxis = renderXAxes(xLinearScale, xAxis);
 
         // changes classes to change bold text
@@ -320,7 +319,7 @@ d3.csv("assets/data/data.csv").then(function(data, err)
         }}
       else if (value === "obesity" || value === "smokes" || value === "healthcare"){
 
-          // replaces chosenXAxis with value
+          // replaces chosenYAxis with value
           chosenYAxis = value;
   
           console.log(chosenYAxis)
